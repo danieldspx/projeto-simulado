@@ -1,0 +1,54 @@
+Options All -Indexes
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^desempenho/?$ ./desempenho.php [NC,L]
+  RewriteRule ^contato/?$ ./faleconosco.php [NC,L]
+  RewriteRule ^ranking/?$ ./ranking.php [NC,L]
+  RewriteRule ^principal/?$ ./principal.php [NC,L]
+  RewriteRule ^questoes/?$ ./questions_page.php [NC,L]
+  RewriteRule ^filtro/?$ ./filtro.php [NC,L]
+  RewriteRule ^simulado/?$ ./simuladoQuestoes.php [NC,L]
+  RewriteRule ^finalizado/?$ ./simuladoDone.php [NC,L]
+  RewriteRule ^correcao/?$ ./simuladoCorrecao.php [NC,L]
+  RewriteRule ^usuario/?$ ./usuario.php [NC,L]
+  RewriteRule ^cadastro/?$ ./cadastro.php [NC,L]
+  RewriteRule ^cadastro/confirmacao/?$ ./confirmCadastro.php [NC,L]
+  RewriteRule ^administrador/?$ ./admin_access.php [NC,L]
+  RewriteRule ^colaborador/?$ ./helpmate_access.php [NC,L]
+  RewriteRule ^ajuda/?$ ./faq.html [NC,L]
+  RewriteRule ^recuperacao/?$ ./passwordForgot.php [NC,L]
+  RewriteRule ^termos/?$ ./termos.html [NC,L]
+  RewriteRule ^planos/?$ ./tabelaPlanos.html [NC,L]
+  RewriteRule ^errorPagina/?$ ./404.shtml [NC,L]
+</IfModule>
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/atom_xml
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-httpd-php
+    AddOutputFilterByType DEFLATE application/x-httpd-fastphp
+    AddOutputFilterByType DEFLATE application/x-httpd-eruby
+    AddOutputFilterByType DEFLATE text/html
+
+    SetOutputFilter DEFLATE
+
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+
+    BrowserMatch ^Mozilla/4.0[678] no-gzip
+
+    BrowserMatch ^HMSI[E] !no-gzip !gzip-only-text/html
+
+    SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png)$ no-gzip dont-vary
+</IfModule>
+<files ~ "^.*\.([Hh][Tt][Aa])">
+order allow,deny
+deny from all
+satisfy all
+</files>

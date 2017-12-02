@@ -1,0 +1,36 @@
+@media (min-width: 200px) {
+    #main{
+        padding: 0px;
+    }
+    .rside{
+        padding: 0px;
+        margin-top: 67px;
+    }
+    .tagsProfile,
+    .sectionProfile{
+        left: 0px;
+        width: 100%;
+    }
+    .tagsProfile{
+        margin-top: 10px;
+    }
+    .groupForm{
+        display: block;
+    }
+    #viewIcon{
+        margin: 15px 0 40px 5px;
+    }
+}
+
+@media (min-width: 756px) {
+    .rside{
+        margin-top: 67px;
+    }
+    .tagsProfile,.form,.sectionProfile{
+        left: 5%;
+        width: 90%;
+    }
+    #viewIcon{
+        margin: 15px 0 40px 5px;
+    }
+}

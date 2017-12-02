@@ -1,0 +1,9 @@
+<ul class="dropdown-menu">
+    <li><a href="contato">Fale conosco</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="ajuda">FAQ</a></li>
+    <li><a href="termos">Termos e condições de uso</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="https://www.facebook.com/gedam.cedaf" target="_BLANK">Facebook - GEDAM</a></li>
+    <li><a href="http://www.gremioestudantil.caf.ufv.br/" target="_BLANK">Site do Grêmio Estudantil</a></li>
+</ul>

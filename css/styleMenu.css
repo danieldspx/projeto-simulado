@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+.menu-group{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+    display: inline-block;
+    z-index: 20;
+    -webkit-transition: all 0.5s !important;
+    -moz-transition: all 0.5s !important;
+    -ms-transition: all 0.5s !important;
+    -o-transition: all 0.5s !important;
+    transition: all 0.5s !important;
+}
+.menu-section,#menu-active{
+    z-index: 10;
+    margin: 0px;
+    overflow: hidden;
+}
+.menu-section{
+    height: 67px;
+    background-color: #00e0c6;
+}
+.divisorV{
+    z-index: 10;
+    display: inline-block;
+    width: 3px;
+    height: 40px;
+    background-color: azure;
+    position: relative;
+    left: 7px;
+    top: -3px;
+}
+.menu-lista{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    
+}
+.menu-lista-item{
+    list-style: none;
+    padding: 10px 35px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    width: 100%;
+    font-size: 18px;
+    color: #333;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.menu-lista-item:nth-last-child(n+2){
+    border-bottom-style: solid;
+    border-bottom-color: azure;
+    border-bottom-width: 3px;
+}
+.li-active{
+    background-color: rgba(245,245,245,0.8);
+}
+.menu-lista-item:hover{
+    background-color: rgba(245,245,245,0.5);
+    cursor: pointer;
+}
+.lista-lu{
+    list-style: circle !important;
+    font-size: 13px !important;
+    padding-left: 70px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    border-bottom: none !important;
+}
+#linksUteis{
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+}
+#iconPlus{
+    font-size: 15px;
+    vertical-align: middle;
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -ms-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+}
+.rotate-iconPlus{
+    transform: rotate(45deg);
+}
+#menu-active{
+    overflow-y: scroll;
+    animation-duration: 0.5s;
+    width: auto;
+    max-width: 80%;
+    border-bottom-right-radius: 10px;
+    max-height: 350px;
+    height: auto;
+    background: linear-gradient(180deg, #00e0c6, #4fffbe);
+    opacity: 0.1;
+    overflow: auto;
+    position: fixed;
+    top: 67px;
+    left: 0px;
+}
+.col {
+	display: inline-block;
+    position: fixed;
+    left: 0%;
+    top: 0%;
+	padding: 1% 0 1% 1.6%;
+}
+.three{
+    z-index: 20;
+    width: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+.hamburger .line{
+    width: 50px;
+    height: 5px;
+    background-color: azure;
+    display: block;
+    margin: 8px 0px;
+    transition: all 0.2s ease-in-out;
+}
+.hamburger{
+    display: inline-block;
+}
+
+.three:hover{
+    cursor: pointer;
+}
+#hamburger-6.is-active{
+  transition: all 0.4s ease-in-out;
+  transition-delay: 0.2s;
+  transform: rotate(45deg);
+}
+#hamburger-6.is-active .line:nth-child(2){
+    width: 0;
+    opacity: 0;
+}
+#hamburger-6.is-active .line:nth-child(1){
+    transform: translateY(13px);/* ESSE VALOR É .line.height.value/2 + .line.margin-top.value*/
+}
+#hamburger-6.is-active .line:nth-child(3){
+    transform: translateY(-13px) rotate(90deg);
+}
+#addNotification{
+    overflow-y: scroll;
+}

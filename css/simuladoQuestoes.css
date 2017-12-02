@@ -1,0 +1,276 @@
+@font-face {
+    font-family: 'Digital';
+    src: url('fonts/digital-7mono.ttf');
+}
+#clockBox {
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+    -webkit-transition: width 0.5s;
+    transition: width 0.5s;
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+    background-color: rgba(44, 62, 80,.8);
+    color: #ecf0f1;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    padding-left: 10px;
+    font-weight:: 700;
+    width: 0px;
+    height: 30px;
+    position: fixed;
+    left: 55px;
+    bottom: 20px;
+    opacity: 0;
+}
+.clockBox{
+    display: inline-block;
+}
+#relogio-menu{
+    font-size: 18px;
+    font-weight: 800;
+    display: inline-block;
+    position: relative;
+    float: right;
+    margin-right: 5%;
+    margin-top: 19px;
+    color: #615f5f;
+}
+span#campoQuestoes{
+    position:absolute;
+    left:50%;
+    width:90%;
+    height:50%;
+    margin-left:-45%;
+    margin-top: 50px;
+    text-align:center;
+    border-radius: 10px;
+}
+span#campoQuestoes>p{
+    position: relative;
+    font-family: 'Francois One',sans-serif;
+    font-weight: 700;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 100px;
+}
+hr{
+    border: none;
+    height: 8px;
+    background-color: rgba(105,105,105,0.95);
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+div#fieldT{
+    position:absolute;
+    width:100%;
+    height:100%;
+    margin-top: 50px;
+    visibility: hidden;
+}
+img#loading{
+
+    width: 150px;
+    border-radius: 500px;
+    display: block;
+}
+span#sub {
+    padding: 10px;
+    font-family: Arial,sans-serif;
+    font-weight: 600;
+    opacity: 1;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 15px;
+    text-align: center;
+}
+#btnStart{
+    color: #2c3e50;
+    -webkit-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    transition: color 0.5s;
+    cursor: pointer;
+}
+#btnStart:hover{
+    color: #3498db;
+}
+a#endSimulado{
+    font-weight: 700;
+    -webkit-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    transition: color 0.5s;
+}
+a#endSimulado:hover{
+    color: #e74c3c;
+    cursor: pointer;
+}
+@import url("http://fonts.googleapis.com/css?family=PT+Sans+Narrow");
+
+body {
+    font: 14px/1.5 "PT Sans Narrow", sans-serif;
+    background: #080e24 url(http://neography.com/experiment/circles/solarsystem/bg.jpg) repeat;
+    color: #626668;
+}
+.sk-cube-grid {
+width: 40px;
+height: 40px;
+margin: 100px auto;
+}
+
+.sk-cube-grid .sk-cube {
+width: 33%;
+height: 33%;
+background-color: #ecf0f1;
+float: left;
+-webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+        animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+.sk-cube-grid .sk-cube1 {
+-webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube2 {
+-webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube3 {
+-webkit-animation-delay: 0.4s;
+        animation-delay: 0.4s; }
+.sk-cube-grid .sk-cube4 {
+-webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube5 {
+-webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube6 {
+-webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube7 {
+-webkit-animation-delay: 0s;
+        animation-delay: 0s; }
+.sk-cube-grid .sk-cube8 {
+-webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube9 {
+-webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s; }
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+} 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1);
+}
+}
+
+@keyframes sk-cubeGridScaleDelay {
+0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+} 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1);
+}
+}
+
+div#SimuladoBoxButtons{
+    text-align: center;
+}
+div#textoSimuladoBox{
+    font-family: 'Francois One', sans-serif;
+    color: #ecf0f1;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/****************************************************
+* 	Push Button
+*****************************************************/
+
+a.confirm_button:link, a.confirm_button:visited,a.cancel_button:link, a.cancel_button:visited {
+    text-decoration: none;
+    color: #ecf0f1;
+}
+a.confirm_button:hover,a.cancel_button:hover {
+    text-decoration: none;
+    color: #ecf0f1;
+}
+a.confirm_button:active,a.cancel_button:active {
+    text-decoration: none;
+}
+.confirm_button {
+position: relative;
+font-family: Montserrant,sans-serif;
+width: 20%;
+color: #ecf0f1;
+display: inline-block;
+text-decoration: none;
+margin: 0 auto;
+border-radius: 5px;
+border: solid 1px #26C281;
+background: #2ecc71;
+text-align: center;
+padding: 20px 30px;
+font-size: 25px;
+-webkit-transition: all 0.1s;
+-moz-transition: all 0.1s;
+transition: all 0.1s;
+-webkit-box-shadow: 0px 9px 0px #1E824C;
+-moz-box-shadow: 0px 9px 0px #1E824C;
+box-shadow: 0px 9px 0px #1E824C;
+}
+
+.confirm_button:active {
+-webkit-box-shadow: 0px 2px 0px #1E824C;
+-moz-box-shadow: 0px 2px 0px #1E824C;
+box-shadow: 0px 2px 0px #1E824C;
+position: relative;
+top: 7px;
+}
+
+.cancel_button {
+position: relative;
+font-family: Montserrant,sans-serif;
+width: 20%;
+color: #ecf0f1;
+display: inline-block;
+text-decoration: none;
+margin: 0 auto;
+border-radius: 5px;
+border: solid 1px #D94E3B;
+background: #cb3b27;
+text-align: center;
+padding: 20px 30px;
+font-size: 25px;
+-webkit-transition: all 0.1s;
+-moz-transition: all 0.1s;
+transition: all 0.1s;
+-webkit-box-shadow: 0px 9px 0px #84261a;
+-moz-box-shadow: 0px 9px 0px #84261a;
+box-shadow: 0px 9px 0px #84261a;
+}
+
+.cancel_button:active {
+-webkit-box-shadow: 0px 2px 0px #84261a;
+-moz-box-shadow: 0px 2px 0px #84261a;
+box-shadow: 0px 2px 0px #84261a;
+position: relative;
+top: 7px;
+}
+
+@media (max-width: 568px) {
+    .cancel_button,.confirm_button{
+        width: 48%;
+        display: inline-block;
+    }
+}
+
+@media (max-width: 320px) {
+    .cancel_button,.confirm_button{
+        width: 48%;
+        display: inline-block;
+        font-size: 15px;
+    }
+}
