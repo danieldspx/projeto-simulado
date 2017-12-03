@@ -32,3 +32,25 @@ function DBSearch($table, $params=null, $campos='*'){
     }
 
 }
+
+///Deleta registros
+function DBDelete($table,$params=null){
+    if($param){
+        return false;
+    }
+    $query = "DELETE FROM $table $params";
+    return DBExecute($query);
+}
+
+//Faz o update dos registros
+function DBUpdate($table, $params=null,array $data){
+    $data = DBEscape($data);
+    $query = "UPDATE $table SET ";
+    $i = 0;
+    foreach($data as $key => $value){
+        $serial[$i] .= " $key = '$value'";
+        $i ++;
+    }
+    $query .= implode(",",$serial)." $params";
+    return DBExecute($query);
+}

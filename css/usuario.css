@@ -322,3 +322,35 @@ input:focus {
         }
     }
 }
+
+div.dialogRed{
+    opacity: 1;
+    background-color: rgba(231,76,60,0.9);
+    border-radius: 15px;
+    padding: 10px;
+    z-index: 999;
+}
+div.dialogGreen{
+    opacity: 1;
+    background-color: rgba(22,160,133,0.9);
+    border-radius: 15px;
+    padding: 10px;
+    z-index: 999;
+}
+#dialogBox{
+    transition: 0.5s opacity;
+}
+div.dialogRed>p,div.dialogGreen>p{
+    color: #ecf0f1;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.iconModify{
+    vertical-align: middle;
+    padding: 10px 20px;
+}
+
+.pointer{
+    cursor: pointer;
+}

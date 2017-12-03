@@ -10,31 +10,34 @@
         $_SESSION['logout'] = "Logout efetuado com sucesso.";
         header("Location: principal");
     }
-    include_once 'private_html_protected/config.php';
-    include_once 'private_html_protected/connection.php';
-    include_once 'private_html_protected/database.php';
+    require_once 'private_html_protected/config.php';
+    require_once 'private_html_protected/connection.php';
+    require_once 'private_html_protected/database.php';
+
     $resposta = DBSearch("usuarios","WHERE id = ".$_SESSION['usuario']['id'],"id_sessao");
     if($resposta[0]["id_sessao"]!=$_SESSION['usuario']['sessao']){
         unset($resposta);
         header("Location: LoginSimultaneo.php");
     }
     unset($resposta);
-    $resposta = DBSearch("usuarios","WHERE id = ".$_SESSION['usuario']['id'],"matricula,celular,instituicao,ano");
-    if($resposta[0]['instituicao']==1){
-        $resposta[0]['instituicao']="Centro de Ensino e Desenvolvimento Agrário de Florestal";
-    } else {
-        $resposta[0]['instituicao']="Escola Estadual Serafim Ribeiro de Rezende";
-    }
     //Detecta Mobile
-    include_once 'mobile_detect/Mobile_Detect.php';
+    require_once 'mobile_detect/Mobile_Detect.php';
     $detect = new Mobile_Detect;
-    $is_mobile=$detect->isMobile();
+    $is_mobile = $detect->isMobile();
+        
+    $pesquisa = DBSearch("usuarios","WHERE id = ".$_SESSION['usuario']['id'],"nome,sobrenome,email,matricula,instituicao,ano,celular,SUBSTRING(foto_perfil,5) AS foto_perfil");
+    $dados = $pesquisa[0];
+    unset($pesquisa);
+
+    $dados['ano'] .= "º Ano";
+
+    $dados['instituicao'] = $dados['instituicao']==1 ? "Central de Ensino e Desenvolvimento Agrário de Florestal": "Escola Estadual Serafim Ribeiro de Rezende";
+
 ?>
 <html>
     <head>
         <meta name="robots" content="noindex">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="css/footer.css" rel="stylesheet" type="text/css">
         
         <title>Usuário</title>
@@ -45,14 +48,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="js/jquery-1.11.1.min.js"></script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link href="css/usuariosStyle.css" rel="stylesheet" type="text/css"/>
-        <script src="js/usuarioFunctions.js" type="text/javascript"></script>        
+        <link href="css/usuario.css" rel="stylesheet" type="text/css"/>      
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/animate.min.css"/>
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <link href="iconfont/material-icons.css" rel="stylesheet">
         <?php
             if($is_mobile){
                 echo "<link href='css/styleMenu.css' rel='stylesheet'>";
-                echo "<link href='css/animateMenu.css' rel='stylesheet'>";   
+                echo "<link href='css/animateMenu.css' rel='stylesheet'>"; 
+                echo "<link href='css/mobile_usuario.css' rel='stylesheet'>"; 
             }
         ?>
     </head>
@@ -95,7 +100,7 @@
                 </form>
             </div>
         <?php }else{ ?>
-            <nav class="navbar navbar-inverse navbar-default" style="border-radius: 0px" id="navbar-desktop">
+            <nav class="navbar navbar-inverse navbar-default" style="border-radius: 0px; margin: 0px" id="navbar-desktop">
                 <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
@@ -129,167 +134,148 @@
                 </div><!-- /.container-fluid -->
             </nav>
         <?php }; ?><!--//FIM DO TESTE IS_MOBILE-->
-        <?php
-                if(isset($_SESSION['Error'])){
-                    echo "<div id='dialogBox' class='sessao1' style='position: fixed; right: 2px; bottom: 10px;'><i style='float: right; cursor: pointer;' onclick='closeAlert()'  class='fa fa-window-close fa-lg' aria-hidden='true'></i><p>".$_SESSION['Error']."</p></div>";
-                    unset($_SESSION['Error']);
-                    echo "<script>setTimeout(closeAlert,7000);</script>";
-                }
-                if(isset($_SESSION['Success'])){
-                    echo "<div id='dialogBox' class='sessao2' style='position: fixed; right: 2px; bottom: 10px;'><i style='float: right; cursor: pointer;' onclick='closeAlert()'  class='fa fa-window-close fa-lg' aria-hidden='true'></i><p>".$_SESSION['Success']."</p></div>";
-                    unset($_SESSION['Success']);
-                    echo "<script>setTimeout(closeAlert,7000);</script>";
-                }
-        ?>
-        <form class="userForm" method="POST" action="valida/salvadados.php" style="margin-top: 90px;">
-            <fieldset><legend><img src="<?php echo $_SESSION['usuario']['foto']; ?>" width="70px"/>&nbsp;&nbsp;&nbsp;Dados Pessoais</legend>
-                <table class="nome inline">
-                    <tr>
-                        <td>
-                            <label>Nome</label><br>
-                            <input type="text" name="nNome" value="<?php echo $_SESSION['usuario']['nome'];?>"/>
-                        </td>
-                    </tr>
-                </table>
-                <table class="nome inline right">
-                    <tr >
-                        <td>
-                            <label>Sobrenome</label><br>
-                            <input type="text" name="nSobrenome" value="<?php echo $_SESSION['usuario']['sobrenome'];?>"/>
-                        <td>
-                    </tr>
-                </table>
-                
-                <hr>
-                <table class="dados inline">
-                    <tr>
-                        <td>
-                            <label>E-mail</label><br>
-                            <input type="text" name="nEmail" value="<?php echo $_SESSION['usuario']['email'];?>" readonly="readonly"/>
-                        </td>
-                    </tr>
-                </table>
-                <table class="dados inline right">
-                    <tr>
-                        <td>
-                            <label>Ícone de Perfil</label><span class="sub">(Preview no final da página)</span><br>
-                            <select name="iconePerfil">
-                                <option value="null">  </option>
-                                <option value="Aluna.png">Aluna</option>
-                                <option value="Aluno.png">Aluno</option>
-                                <option value="Astronauta.png">Astronauta</option>
-                                <option value="Atomo.png">Átomo</option>
-                                <option value="Cerebro.png">Cérebro</option>
-                                <option value="Certificado.png">Certificado</option>
-                                <option value="Doutor.png">Doutor</option>
-                                <option value="Doutora.png">Doutora</option>
-                                <option value="Einstein.png">Einstein</option>
-                                <option value="Foguete.png">Foguete</option>
-                                <option value="Ghost.png">Ghost</option>
-                                <option value="Homem.png">Homem</option>
-                                <option value="HomemAprendendo.png">Homem lendo</option>
-                                <option value="Inteligencia Artificial.png">Inteligência Artificial</option>
-                                <option value="Jato.png">Jato</option>
-                                <option value="Mulher.png">Mulher</option>
-                                <option value="MulherAprendendo.png">Mulher lendo</option>
-                                <option value="Robocop.png">Robocop</option>
-                                <option value="SistemaSolar.png">Sistema Solar</option>
-                                <option value="ViaLactea.png">Via Láctea</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-                 <table class="dados inline">
-                    <tr>
-                        <td>
-                            <label>Matrícula</label><br>
-                            <input type="number" name="nMatricula"  value="<?php echo $resposta[0]['matricula'];?>" readonly="readonly"/>
-                        </td>
-                    </tr>
-                </table>
-                <table class="dados inline right">
-                    <tr>
-                        <td>
-                            <label>Celular</label><br>
-                            <input id="nCelular" name="nCelular" type="text" value="<?php echo $resposta[0]['celular'];?>" onkeydown="MaskDown(this)" onkeyup="MaskUp(this,event,'(##) #####-####')" class="form-control input-md">
-                        </td>
-                    </tr>
-                </table>
-                <hr>
-                <table class="dados" style="width: 100%;">
-                    <tr>
-                        <td>
-                            <label>Instituição</label><br>
-                            <input type="text" name="nMatricula" id="nMatricula"  value="<?php echo $resposta[0]['instituicao'];?>" readonly="readonly"/>
-                        </td>
-                    </tr>
-                </table>
-                <hr>
-                <table class="dados inline">
-                    <tr>
-                        <td>
-                            <label>Ano</label><br>
-                            <input type="text" name="nInstituicao" id="nInstituicao" value="<?php echo $resposta[0]['ano']."º Ano do Ensino Médio";?>" readonly="readonly" onkeydown="MaskDown(this)" onkeyup="MaskUp(this,event,'(##) #####-####')"/>
-                        </td>
-                    </tr>
-                </table>
-                <hr>
-                <table class="senha inline">
-                    <tr>
-                        <td>
-                            <label>Alterar Senha</label><br>
-                            <input type="password" id="senha" name="nSenha" placeholder="Digite a nova senha" onchange="verificaSenhas()"/>
-                        </td>
-                    </tr>
-                </table>
-                <table class="senha inline right">
-                    <tr>
-                        <td>
-                            <label>Confirmação<span id="idSenha" class="sub"></span></label><br>
-                            <input type="password" id="senhaConfirm" name="nSenhaConfirm" placeholder="Confirme a nova senha" onchange="verificaSenhas()"/>
-                        </td>
-                    </tr>
-                </table> 
-                <hr>
-                <table class="senhaAtual">
-                    <tr>
-                        <td>
-                            <label>Senha Atual - Para salvar as configurações<span class="sub"></span></label><br>
-                            <input type="password" id="senhaConfirm" name="nSenhaAtual" placeholder="Digite a senha Atual"/>
-                            <p style="color: rgba(0,0,0,0.5); font-weight: 700;"><br>Se a senha estiver errada<br>nada será salvo.</p>
-                        </td>
-                    </tr>
-                </table>
-                <hr>
-                <input style="margin: 0 0 10px 10px;" class="btnsalvar" type="submit" value="Salvar Dados">               
-            </fieldset>
-        </form>
-        <div id="view">preview da foto de Perfil (Passe o mouse sobre a foto)</div>
-        <ul id="album-fotos">
-		<li id="foto01"><span>Aluna</span></li>
-		<li id="foto02"><span>Aluno</span></li>
-		<li id="foto03"><span>Astronauta</span></li>
-		<li id="foto04"><span>Átomo</span></li>
-		<li id="foto05"><span>Cérebro</span></li>
-		<li id="foto06"><span>Certificado</span></li>
-                <li id="foto07"><span>Doutor</span></li>
-                <li id="foto08"><span>Doutora</span></li>
-                <li id="foto09"><span>Einstein</span></li>
-                <li id="foto010"><span>Foguete</span></li>
-                <li id="foto011"><span>Ghost</span></li>
-                <li id="foto012"><span>Homem</span></li>
-                <li id="foto013"><span>Homem lendo</span></li>
-                <li id="foto014"><span>Inteligência Artificial</span></li>
-                <li id="foto015"><span>Jato</span></li>
-                <li id="foto016"><span>Mulher</span></li>
-                <li id="foto017"><span>Mulher lendo</span></li>
-                <li id="foto018"><span>Robocop</span></li>
-                <li id="foto019"><span>Sistema Solar</span></li>
-                <li id="foto020"><span>Via Láctea</span></li>
-	</ul>
-    <!--FOOTER INICIA AQUI-->
-    <br><br><br><br><br><br>
-    <footer>
+        <div id="main" class="col-md-12">
+            <?php if(!$is_mobile){ ?>
+                <div class="lside col-md-3">
+                    <div class="imgSection">
+                       <?php
+                            $url_img = "userbg_".rand(1,7).".jpg";
+                        ?>
+                        <img <?php echo "src='img/$url_img'"; ?> width="100%" style="float: right; filter: brightness(90%)" alt="Imagem de Fundo" aria-hidden="true">
+                        <div style="width:100%; text-align:center; position: absolute;">
+                            <div id="placeImg"><img <?php echo "src='img/".$dados['foto_perfil']."'"; ?> id="imgUserView" width="100%" height="100%" alt="Imagem de Perfil"></div>
+                        </div>
+                    </div>
+                    <div class="corpoSide">
+                        <ul style="list-style: none; position: relative; padding: 0px; margin: 0px;">
+                            <li class="corpoSideItem">Ranking <i class="fa fa-trophy" aria-hidden="true"></i></li>
+                            <li class="corpoSideItem">Desempenho <i class="fa fa-pie-chart" aria-hidden="true"></i></li>
+                        </ul>
+                    </div>
+                </div>
+            <?php }; ?>
+            <div class="rside col-md-9">
+               <div class="tagsProfile">
+                   <ul id="tagList">
+                        <li class="tagItem activeTag" onclick="activePerfil()">Perfil</li>
+                        <li class="tagItem" onclick="activeSenha()">Senha</li>
+                   </ul>
+               </div>
+                <div class="sectionProfile">
+                    <div id="perfilSection">
+                        <div class="form">
+                            <div class="row">
+                                <div class="groupForm col-sm-offset-1 col-md-offset-1 col-xs-12 col-sm-6 col-md-6">
+                                    <label for="nNome">Nome</label>
+                                    <input type="text" name="nNome" <?php echo "value='".$dados['nome']."'"; ?>  id="nNome">
+                                </div>
+                                <div class="groupForm col-xs-12 col-sm-4 col-md-4">
+                                    <label for="nSobrenome">Sobrenome</label>
+                                    <input type="text" name="nSobrenome" <?php echo "value='".$dados['sobrenome']."'"; ?> id="nSobrenome">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="groupForm col-sm-offset-1 col-md-offset-1 col-xs-12 col-sm-6 col-md-6">
+                                    <label for="nEmail">E-mail</label>
+                                    <input type="text" name="nEmail" id="nEmail" <?php echo "value='".$dados['email']."'"; ?> readonly="readonly">
+                                </div>
+                                <div class="groupForm col-xs-12 col-sm-4 col-md-4">
+                                    <label for="nMatricula">Matrícula</label>
+                                    <input type="number" name="nMatricula" id="nMatricula" <?php echo "value='".$dados['matricula']."'"; ?> readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="groupForm col-sm-offset-1 col-md-offset-1 col-xs-12 col-sm-6 col-md-6">
+                                    <label for="nInstituicao">Instituição</label>
+                                    <input type="text" name="nInstituicao" id="nInstituicao" <?php echo "value='".$dados['instituicao']."'"; ?> readonly="readonly">
+                                </div>
+                                <div class="groupForm col-xs-12 col-sm-4 col-md-4">
+                                    <label for="nAno">Ano</label>
+                                    <input type="text" name="nAno" id="nAno" <?php echo "value='".$dados['ano']."'"; ?> readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="row">
+                               <div class="groupForm col-sm-offset-1 col-md-offset-1 col-xs-12 col-sm-6 col-md-6">
+                                    <label for="iconePerfil">Ícone de Perfil</label><br>
+                                    <span class="custom-dropdown custom-dropdown--white">
+                                        <select name="iconePerfil" id="iconePerfil" onchange="changeIcon(this)" class="custom-dropdown__select custom-dropdown__select--white">
+                                            <?php
+                                                $img = str_replace(".png","",$dados['foto_perfil']);
+                                                if($img=="Foguete"){echo("selected");}
+                                                $imagens = array(
+                                                    "Aluna" => "Aluna",
+                                                    "Aluno" => "Aluno",
+                                                    "Astronauta" => "Astronauta",
+                                                    "Atomo" => "Átomo",
+                                                    "Cerebro" => "Cérebro",
+                                                    "Certificado" => "Certificado",
+                                                    "Doutor" => "Doutor",
+                                                    "Doutora" => "Doutora",
+                                                    "Einstein" => "Einstein",
+                                                    "Foguete" => "Foguete",
+                                                    "Ghost" => "Ghost",
+                                                    "Homem" => "Homem",
+                                                    "HomemAprendendo" => "Homem lendo",
+                                                    "Inteligencia Artificial" => "Inteligência Artificial",
+                                                    "Jato" => "Jato",
+                                                    "Mulher" => "Mulher",
+                                                    "MulherAprendendo" => "Mulher lendo",
+                                                    "Robocop" => "Robocop",
+                                                    "SistemaSolar" => "Sistema Solar",
+                                                    "ViaLactea" => "Via Láctea",
+                                                );
+                                                foreach($imagens as $key => $value){
+                                                    if($img != $key){
+                                                        echo "<option value='$key.png'>$value</option>";
+                                                    } else {
+                                                        echo "<option value='$key.png' selected>$value</option>";
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                    </span>
+                                    <div id="viewIcon"><img <?php echo "src='img/$img.png'"; ?> id="imgView" alt="Imagem de Pre-View" width="100%"></div>
+                                </div>
+                                <div class="groupForm col-xs-12 col-sm-4 col-md-4">
+                                    <label for="nCelular">Celular</label>
+                                    <input type="text" name="nCelular" <?php echo "value='".$dados['celular']."'"; ?> id="nCelular" onkeydown="MaskDown(this)" onkeyup="MaskUp(this,event,'(##) #####-####')">
+                                </div>
+                                <div class="row col-xs-12 col-sm-12 col-md-12" style="text-align: center; margin-top: 40px;">
+                                    <button class="btnForm" onclick="salvaDados()">Salvar <i class="material-icons" style="margin-left: 5px;">save</i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="senhaSection">
+                        <div class="form">
+                            <h1>Alteração de Senha</h1>
+                            <div class="row col-md-12">
+                                <div class="groupForm col-md-6 col-sm-12">
+                                    <label for="nSenha">Senha Nova<i class="material-icons iconModify pointer" onclick="changeVisibility(this,'nSenha')">visibility</i></label>
+                                    <input type="password" name="nSenha" onkeyup="verificaSenhas()" id="nSenha">
+                                </div>
+                                <div class="groupForm col-md-6 col-sm-12">
+                                    <label for="nSenhaConf">Confirmação<i class="material-icons iconModify pointer" onclick="changeVisibility(this,'nSenhaConf')">visibility</i></label>
+                                    <input type="password" name="nSenhaConf" onkeyup="verificaSenhas()" id="nSenhaConf">
+                                </div>
+                            </div>
+                            <div class="row col-md-12">
+                                <div class="groupForm col-md-6 col-md-offset-3 col-sm-12">
+                                    <label for="senhaAtual">Senha Atual<i class="material-icons iconModify pointer" onclick="changeVisibility(this,'senhaAtual')">visibility</i></label>
+                                    <input type="password" name="senhaAtual" id="senhaAtual">
+                                </div>
+                            </div>
+                            <div class="row col-md-12" style="text-align: center;">
+                                <button class="btnForm" onclick="changePassword()">Salvar <i class="material-icons" style="margin-left: 5px;">save</i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           </div> <!--Fim do rside-->
+        </div>
+        <span id="dialogContainer"></span>
+        <!--FOOTER INICIA AQUI-->
+        <footer>
         <div class="container">
             <div class="row">
             <div class="col-md-4 col-sm-6 footerleft ">
@@ -320,19 +306,11 @@
             <div class="col-md-6">
             <p>© 2017</p>
             </div>
-            <!--div class="col-md-6">
-            <ul class="bottom_ul">
-                <li><a href="#">webenlance.com</a></li>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Faq's</a></li>
-                <li><a href="#">Contact us</a></li>
-                <li><a href="#">Site Map</a></li>
-            </ul>
-            </div-->
         </div>
         </div>
-        <script src="js/jquery.js"></script>
+        <script src="js/usuario.js" type="text/javascript"></script>
+        <script src="js/jquery.js" type="text/javascript"></script>
+        <script src="js/materialize.min.js" type="text/javascript"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <?php
