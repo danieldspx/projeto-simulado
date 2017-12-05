@@ -23,7 +23,6 @@
     include_once 'mobile_detect/Mobile_Detect.php';
     $detect = new Mobile_Detect;
     $is_mobile=$detect->isMobile();
-    
 ?>
 <html>
     <head>
@@ -95,7 +94,7 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <?php if($is_mobile){ ?>
+        <?php if($is_mobile){ ?> <!--//CONTEUDO MOBILE-->
             <div id="navbar-mobile">
                 <div class="menu-group animated" id="menu-groupID">
                     <div class="menu-section">
@@ -128,10 +127,8 @@
                 <form method="GET" action="" name="logOutForm" style="display: none">
                     <input value="1" name="slogout" style="display: none;">
                 </form>
-            </div>
-            
+            </div>        
         <?php }else{ ?>
-           
             <nav class="navbar navbar-inverse navbar-default" style="border-radius: 0px" id="navbar-desktop">
                 <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->

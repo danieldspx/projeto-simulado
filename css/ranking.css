@@ -206,6 +206,7 @@ span#myPoints{
     span#myPoints{
         width: 90%;
         left: 5%;
+        padding: 0 5px;
     }
     .item{
         width: 95%;
