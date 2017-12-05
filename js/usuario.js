@@ -78,7 +78,6 @@ function changePassword () {
                 $("#nSenhaConf").css("border-bottom-color","#9e9e9e").val("");
                 $("#senhaAtual").css("border-bottom-color","#9e9e9e").val("");
                 setTimeout(closeAlert,4000);
-                console.log(msg);
             }
         });  
     } else {

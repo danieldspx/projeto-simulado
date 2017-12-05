@@ -382,10 +382,10 @@
                             echo "<div id='section_usercmm$id'>";
                                 if(!$comentarioUsuario){
                                     echo "<div id=\"buttonsResolution$id\" style=\"margin: 20px 0px;\"><button onclick=\"writeResolution(".$id.")\" style=\"margin-right: 15px;\" id=\"write".$id."\" class=\"btn btn-primary btn-info displaynone\">Escrever resolução <span class=\"glyphicon glyphicon-comment\"></span></button>";
-                                    echo "<button onclick=\"showMathML('".$id."')\" style=\"display: none;\" id=\"math".$id."\" class=\"btn btn-primary btn-warning\">Símbolos Matemáticos <i class=\"fa fa-calculator\" aria-hidden=\"true\"></i></button></div>";
+                                    echo "<button onclick=\"showMathML('".$id."')\" style=\"display: none; margin-top 20px;\" id=\"math".$id."\" class=\"btn btn-primary btn-warning\">Símbolos Matemáticos <i class=\"fa fa-calculator\" aria-hidden=\"true\"></i></button></div>";
                                     echo "<span id=\"MathField".$id."\"></span>";
                                     echo "<span id=\"digite_comentario".$id."\" class=\"displaynone\">";
-                                        echo "<textarea type=\"text\" rows='4' style=\"display: block; margin-bottom: 20px;\" id=\"txtResolucao".$id."\" cols='50' maxlength='800' placeholder='Digite sua solução. Máx: 800 caracteres'></textarea>";
+                                        echo "<textarea type=\"text\" rows='4' style=\"display: block; position: relative; max-width: 90%; margin-bottom: 20px;\" id=\"txtResolucao".$id."\" cols='50' maxlength='800' placeholder='Digite sua solução. Máx: 800 caracteres'></textarea>";
                                         echo "<div id=\"editorContainer\"></div>";
                                         echo "<input class='btn btn-info btn-sm' type='submit' value='Enviar Resolução' onclick=\"addResolucao(".$id.")\">";
                                     echo "</span>";
