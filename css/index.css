@@ -145,6 +145,15 @@ button#loginB {
     animation-direction: alternate
 }
 
+.modal-dialog{
+    z-index: 1041;
+}
+
+.modal-title{
+    font-size: 25px;
+    font-weight: 800;
+}
+
 @keyframes scanMove {
     from {
         top: 15%

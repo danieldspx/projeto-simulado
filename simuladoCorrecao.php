@@ -33,6 +33,11 @@
         header("Location: LoginSimultaneo.php");
     }
     unset($resposta);
+
+    //Detecta Mobile
+    include_once 'mobile_detect/Mobile_Detect.php';
+    $detect = new Mobile_Detect;
+    $is_mobile=$detect->isMobile();
 ?>
 <html>
     <head>
@@ -53,8 +58,15 @@
         <link href="css/correcaoSimulado.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <link href="iconfont/material-icons.css" rel="stylesheet">
         <link href="css/multiple.css" rel="stylesheet">
         <script src="js/multiple.min.js"></script>
+        <?php
+            if($is_mobile){
+                echo "<link href='css/styleMenu.css' rel='stylesheet'>";
+                echo "<link href='css/animateMenu.css' rel='stylesheet'>"; 
+            }
+        ?>
         <?php include_once("add/analyticstracking.php") ?>
     </head>
     <body style="background-color: #fafafa">
@@ -62,39 +74,76 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <nav class="navbar navbar-inverse navbar-default" style="border-radius: 0px">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" title="Dados do Usuário" href="usuario" style="font-family: Montserrant,sans-serif;font-weight: 600;color: #ecf0f1;"><span class="glyphicon glyphicon-user"></span>&nbsp; Olá, <?php echo $_SESSION['usuario']['nome']; ?>.</a>
+        <?php if($is_mobile){ ?>
+            <div id="navbar-mobile">
+                <div class="menu-group">
+                    <div class="menu-section animated" id="menu-groupID">
+                        <div class="three col" onclick="showMenu()">
+                            <div class="hamburger" id="hamburger-6">
+                                <span class="line"></span>
+                                <span class="line"></span>
+                                <span class="line"></span>
+                            </div>
+                            <div class="divisorV"></div>
+                        </div>
+                    </div>
+                    <div id="menu-active" class="animated first" style="display: none;">
+                        <ul class="menu-lista">
+                            <li class="menu-lista-item" onclick="window.location.href='questoes';"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span> Questões</li>
+                            <li class="menu-lista-item" onclick="window.location.href='ranking';"><i class="fa fa-trophy" aria-hidden="true"></i> Ranking</li>
+                            <li class="menu-lista-item" onclick="window.location.href='desempenho';"><i class="fa fa-pie-chart" aria-hidden="true"></i> Desempenho</li>
+                            <li class="menu-lista-item" onclick="window.location.href='filtro';"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> Filtro</li>
+                            <li class="menu-lista-item li-active" onclick="window.location.href='simulado';"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Simulado</li>
+                            <li class="menu-lista-item" onclick="window.location.href='usuario';"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Meus Dados</li>
+                            <?php include_once("add/notif_mob.php"); ?>
+                            <li class="menu-lista-item" id="moreLink"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Links Úteis <span class="glyphicon glyphicon-plus" id="iconPlus"></span></li>
+                            <div id="linksUteis" style="display: none;">
+                                <?php include "linksUteisMobile.add"; ?>
+                            </div>
+                            <li class="menu-lista-item" onclick="logOut()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sair</li>
+                        </ul>
+                    </div>
                 </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="questoes"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>&nbsp; Questões</a></li>
-                    <li><a href="ranking"><i class="fa fa-trophy" aria-hidden="true"></i>&nbsp; Ranking <span class="sr-only">(current)</span></a></li>
-                    <li><a href="desempenho"><i class="fa fa-pie-chart" aria-hidden="true"></i>&nbsp; Desempenho</a></li>
-                    <li><a href="filtro"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>&nbsp; Filtro</a></li>
-                    <li  class="active"><a href="simulado"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>&nbsp; Simulado</a></li>
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links Úteis <span class="caret"></span></a>
-                        <?php include "linksUteis.add"; ?>
-                    </li>
-                </ul>
-                <form class="navbar-form navbar-right" method="GET" action="">
+                <form method="GET" action="" name="logOutForm" style="display: none">
                     <input value="1" name="slogout" style="display: none;">
-                    <button type="submit" class="btn btn-primary btn-danger">Logout</button>
                 </form>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+            </div>
+        <?php }else{ ?>
+            <nav class="navbar navbar-inverse navbar-default" style="border-radius: 0px" id="navbar-desktop">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" title="Dados do Usuário" href="usuario" style="font-family: Montserrant,sans-serif;font-weight: 600;color: #ecf0f1;"><span class="glyphicon glyphicon-user"></span>&nbsp; Olá, <?php echo $_SESSION['usuario']['nome']; ?>.</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="questoes"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>&nbsp; Questões</a></li>
+                        <li><a href="ranking"><i class="fa fa-trophy" aria-hidden="true"></i>&nbsp; Ranking</a></li>
+                        <li><a href="desempenho"><i class="fa fa-pie-chart" aria-hidden="true"></i>&nbsp; Desempenho</a></li>
+                        <li><a href="filtro"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>&nbsp; Filtro <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href="simulado"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>&nbsp; Simulado</a></li>
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links Úteis <span class="caret"></span></a>
+                            <?php include "linksUteis.add"; ?>
+                        </li>
+                        <?php include_once("add/notif_desktp.php"); ?>
+                    </ul>
+                    <form class="navbar-form navbar-right" method="GET" action="">
+                        <input value="1" name="slogout" style="display: none;">
+                        <button type="submit" class="btn btn-primary btn-danger">Logout</button>
+                    </form>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
             </nav>
+        <?php }; ?><!--//FIM DO TESTE IS_MOBILE-->
 
         <?php
                 if(isset($_SESSION['Error'])){
@@ -126,7 +175,7 @@
                 	}
                 }
             ?>
-            <span id="myPoints"><i class="fa fa-trophy" aria-hidden="true"></i> Sua pontuação: <span id="pontuacaoAtual"><?php echo $pesquisa[0]['pontos']; ?></span></span>
+            <span id="myPoints" style="margin-top: 85px;"><i class="fa fa-trophy" aria-hidden="true"></i> Sua pontuação: <span id="pontuacaoAtual"><?php echo $pesquisa[0]['pontos']; ?></span></span>
             <?php if(empty($pesquisa)){?>
                 <div class="alert alert-danger" style="width: 40%; position: relative; left:30%; font-size: 15pt; text-align: center; margin-top: 50px;" role="alert"><strong>Você não realizou o simulado.</strong></div>
             <?php };?>
@@ -296,6 +345,11 @@
                 }
             });
         </script>
+        <?php
+            if($is_mobile){
+                echo "<script type='text/javascript' src='js/menu.js'></script>";
+            }
+        ?>
         <script src="js/jquery.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>

@@ -52,3 +52,6 @@ order allow,deny
 deny from all
 satisfy all
 </files>
+<IfModule pagespeed_module>
+    ModPagespeed off
+</IfModule>

@@ -169,7 +169,42 @@
                 </svg>&nbsp;by<br>Daniel dos Santos Pereira
             </div>
         </div>
+        <div class="modal fade" id="colaboradores">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Colaboradores</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        FAPEMIG<br>
+                        Grêmio EStudantil Diogo Alves de Melo - GEDAM<br>
+                        Danilo dos Santos<br>
+                        David Rattes<br>
+                        Frantiesco Menezes<br>
+                        Helder Eduardo<br>
+                        Henrique Araújo<br>
+                        Hiago Figueiredo<br>
+                        Igor Lemos<br>
+                        Janine Barbosa<br>
+                        Maria Eduarda Fiedler<br>
+                        Tatiane Brandão<br>
+                        Thiago Oliveira<br>
+                        Tiago Mendonça<br>
+                        Antônio Barros - Professor<br>
+                        Marcus Henrique - Professor<br>
+                        Ronan Dutra - Professor<br>
+                    </div>
 
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <footer class="row">
             <div class="container">
                 <div class="row">
@@ -187,6 +222,7 @@
                         <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-height="300" data-small-header="false" style="margin-bottom:15px;" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
                             <div class="fb-xfbml-parse-ignore">
                                 <?php include "footerSites.add"; ?>
+                                <blockquote cite="https://www.facebook.com/gedam.cedaf"><a data-toggle="modal" data-target="#colaboradores" style="cursor: pointer">Colaboradores</a></blockquote>
                             </div>
                         </div>
                     </div>
