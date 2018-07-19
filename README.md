@@ -6,9 +6,9 @@ O projeto surgiu com a ideia de criar um sistema onde os alunos pudessem se prep
 
 ## Telas do sistema
 <img src="https://imgur.com/WKIXLh0.png" height="250" alt="Tela de login - Desktop">
-<img src="https://imgur.com/xuDbLcs.png" width="150" alt="Tela de login - Smartphone" style="display: inline-block">
-<img src="https://imgur.com/rAOnL0i.png" width="150" alt="Menu de opções - Smartphone" style="display: inline-block">
-<img src="https://imgur.com/GWVWMC4.png" width="150" alt="Tela de gráficos- Smartphone" style="display: inline-block">
+
+<img src="https://imgur.com/xuDbLcs.png" width="150" alt="Tela de login - Smartphone"> <img src="https://imgur.com/rAOnL0i.png" width="150" alt="Menu de opções - Smartphone"> <img src="https://imgur.com/GWVWMC4.png" width="150" alt="Tela de gráficos- Smartphone">
+
 <img src="https://imgur.com/8qr6k0t.png" height="250" alt="Tela de perfil - Desktop">
 
 
